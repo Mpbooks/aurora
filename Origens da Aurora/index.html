@@ -178,7 +178,7 @@
   }
   .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(56px, 7vw, 96px);
+    font-size: clamp(48px, 7vw, 96px);
     font-weight: 400; line-height: 1.0;
     margin-bottom: 28px;
   }
@@ -566,7 +566,7 @@
     transition: transform 0.4s var(--ease-out);
     max-width: 320px;
   }
-  .toast.show { transform: translateX(0); }
+  .toast.show { transform: translateX(0) translateY(0); }
   .toast-icon { font-size: 20px; flex-shrink: 0; }
   .toast-title { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 2px; }
   .toast-msg { font-size: 12px; color: rgba(245,239,224,0.6); }
@@ -954,6 +954,7 @@
   /* PARALLAX */
   .parallax { will-change: transform; }
 
+  /* MEDIA QUERIES ORIGINAIS (Telas Médias) */
   @media (max-width: 1100px) {
     nav { padding: 20px 32px; }
     .nav-links { display: none; }
@@ -967,22 +968,85 @@
     .func-grid { grid-template-columns: repeat(2, 1fr); }
     .personas-grid { grid-template-columns: 1fr; }
   }
+
+  /* DISPOSITIVOS TOUCH (Remove cursor customizado) */
+  @media (pointer: coarse) {
+    .cursor, .cursor-ring { display: none !important; }
+    body, a, button, input, select { cursor: auto !important; }
+  }
+
+  /* MEDIA QUERIES ADICIONAIS (Mobile & Tablets Menores) */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    nav.scrolled { padding: 12px 20px; }
+    .nav-logo-text { font-size: 16px; }
+    .nav-cta { padding: 10px 16px; font-size: 10px; }
+
+    section { padding: 60px 20px; }
+
+    .hero-content { padding: 120px 20px 40px; }
+    .hero-title { font-size: clamp(40px, 11vw, 56px); }
+    
+    .hero-stats {
+      position: relative; right: auto; bottom: auto;
+      padding: 0; margin-top: 40px;
+      flex-wrap: wrap; gap: 32px; justify-content: flex-start;
+    }
+    .hero-scroll { display: none; }
+    
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn-primary, .btn-secondary, .btn-dark, .btn-submit, .btn-cta { justify-content: center; width: 100%; }
+
+    .about-visual { height: 400px; }
+
+    .menu-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .menu-filters { flex-wrap: wrap; }
+    .menu-grid, .func-grid { grid-template-columns: 1fr; }
+
+    .reserva-form { padding: 32px 20px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .area-btn { font-size: 10px; padding: 10px 4px; }
+
+    .tech-item { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; }
+    .tech-visual { height: 320px; }
+    .tech-orbs { transform: scale(0.8); }
+
+    .timeline { padding-left: 32px; }
+    .timeline-item { padding: 0 0 48px 32px; }
+
+    .cta-actions { flex-direction: column; align-items: stretch; }
+
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+
+    .toast { 
+      left: 20px; right: 20px; bottom: 20px; 
+      width: auto; max-width: none; 
+      transform: translateY(150%) translateX(0); 
+    }
+    .toast.show { transform: translateY(0) translateX(0); }
+
+    .modal { padding: 32px 24px; width: 95%; }
+    .modal-actions { flex-direction: column; }
+  }
+
+  @media (max-width: 480px) {
+    .about-visual { height: 340px; }
+    .tech-orbs { transform: scale(0.65); }
+  }
 </style>
 </head>
 <body>
 
-<!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- LOADING -->
 <div id="loading">
   <div class="loading-logo">Origens da Aurora</div>
   <div class="loading-bar-track"><div class="loading-bar"></div></div>
   <div class="loading-text">Preparando a experiência</div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast">
   <div class="toast-icon">✦</div>
   <div>
@@ -991,7 +1055,6 @@
   </div>
 </div>
 
-<!-- MODAL CONFIRMAÇÃO -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -1025,7 +1088,6 @@
   </div>
 </div>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
     <div class="nav-logo-dot"></div>
@@ -1041,7 +1103,6 @@
   <button class="nav-cta" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Reservar Mesa</button>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grain"></div>
@@ -1084,7 +1145,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
     <div class="about-visual reveal-left">
@@ -1120,7 +1180,6 @@
   </div>
 </section>
 
-<!-- MENU -->
 <section id="menu">
   <div class="menu-header">
     <div>
@@ -1178,7 +1237,6 @@
   </div>
 </section>
 
-<!-- RESERVA -->
 <section id="reserva">
   <div class="reserva-grid">
     <div class="reserva-info">
@@ -1278,7 +1336,6 @@
   </div>
 </section>
 
-<!-- FUNCIONALIDADES -->
 <section id="funcionalidades">
   <div style="text-align:center; margin-bottom:0;">
     <p class="section-tag reveal" style="justify-content:center;">O que entregamos</p>
@@ -1337,7 +1394,6 @@
   </div>
 </section>
 
-<!-- PERSONAS -->
 <section id="personas">
   <p class="section-tag reveal">Para quem construímos</p>
   <h2 class="section-title reveal reveal-delay-1">Público-<em>alvo</em></h2>
@@ -1376,7 +1432,6 @@
   </div>
 </section>
 
-<!-- TECNOLOGIA -->
 <section id="tecnologia">
   <div class="tech-inner">
     <div>
@@ -1435,7 +1490,6 @@
   </div>
 </section>
 
-<!-- TIMELINE -->
 <section id="cronograma">
   <p class="section-tag reveal">Sprints Planejadas</p>
   <h2 class="section-title reveal reveal-delay-1">Cronograma <em>do Projeto</em></h2>
@@ -1487,7 +1541,6 @@
   </div>
 </section>
 
-<!-- CTA -->
 <section id="cta">
   <div class="cta-content">
     <p class="cta-tag reveal">Pronto para começar?</p>
@@ -1500,7 +1553,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div>
